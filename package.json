@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.10",
+    "@material-ui/icons": "^4.9.1",
     "@redux-saga/is": "^1.1.2",
     "@rocketseat/unform": "^1.6.2",
     "@testing-library/jest-dom": "^4.2.4",
@@ -23,6 +25,7 @@
     "reactotron-react-js": "^3.3.7",
     "reactotron-redux": "^3.1.3",
     "reactotron-redux-saga": "^4.2.3",
+    "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
