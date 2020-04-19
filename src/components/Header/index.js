@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import logo from "~/assets/logo-purple.svg";
+import logo from "~/assets/name.png";
+
 import defaultPerfil from "~/assets/perfil.png";
 
 import { Container, Content, Profile } from "./styles";
@@ -14,8 +15,12 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <img src={logo} alt="Laboratório de Automoção e Robótica" />
-          <Link to="/">Dashboard</Link>
+          <Link to="/">
+            <img src={logo} alt="Laboratório de Automoção e Robótica" />
+          </Link>
+          <Link to="/inventario">Inventário</Link>
+          <Link to="/emprestimos">Meu emprestimos</Link>
+          <Link to="/cadastro">Cadastrar item</Link>
         </nav>
 
         <aside>

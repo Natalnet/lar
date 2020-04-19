@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { darken } from "polished";
 
 export const Wrapper = styled.div`
-  height: 100%;
-  background: linear-gradient(-90deg, #7159c1, #ab59c1);
+  height: 100vh;
+  background: #5d636b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,9 +15,8 @@ export const Content = styled.div`
   text-align: center;
 
   img {
-    height: 100px;
+    height: 230px;
   }
-
   form {
     display: flex;
     flex-direction: column;

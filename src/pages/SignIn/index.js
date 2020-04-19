@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import { signInRequest } from "~/store/modules/auth/actions";
 
-import logo from "~/assets/Natalnet.svg";
+import logo from "~/assets/logo-01.png";
 
 const schema = Yup.object().shape({
   email: Yup.string()

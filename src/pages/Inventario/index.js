@@ -1,14 +1,13 @@
 import React from "react";
 
-// import { Container } from "./styles";
+import Dashboard from "./Dashboard";
 
-import logo from "~/assets/Natalnet.svg";
+// import { Container } from "./styles";
 
 export default function Inventario() {
   return (
     <>
-      <h1>Inventario</h1>
-      <img src={logo} alt="Natalnet" />
+      <Dashboard />
     </>
   );
 }

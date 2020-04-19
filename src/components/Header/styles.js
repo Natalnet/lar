@@ -17,7 +17,7 @@ export const Content = styled.div`
     align-items: center;
 
     img {
-      height: 75px;
+      height: 60px;
       margin-right: 20px;
       padding-right: 20px;
       border-right: 0.1px solid #eee;
@@ -26,6 +26,8 @@ export const Content = styled.div`
     a {
       font-weight: bold;
       color: #7159c1;
+      font-size: 18px;
+      margin-right: 15px;
     }
 
     aside {

@@ -10,6 +10,7 @@ import Dashboard from "~/pages/Dashboard";
 import Profile from "~/pages/Profile";
 import Inventario from "~/pages/Inventario";
 import Emprestimos from "~/pages/Empretimos";
+import Cadastro from "~/pages/cadastro";
 
 export default function Routes() {
   return (
@@ -21,6 +22,7 @@ export default function Routes() {
       <Route path="/perfil" component={Profile} isPrivate />
       <Route path="/inventario" component={Inventario} isPrivate />
       <Route path="/emprestimos" component={Emprestimos} isPrivate />
+      <Route path="/cadastro" component={Cadastro} isPrivate />
 
       <Route path="/" component={() => <h1>404</h1>} />
     </Switch>
