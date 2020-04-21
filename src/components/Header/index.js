@@ -19,7 +19,7 @@ export default function Header() {
             <img src={logo} alt="Laboratório de Automoção e Robótica" />
           </Link>
           <Link to="/inventario">Inventário</Link>
-          <Link to="/emprestimos">Meu emprestimos</Link>
+          <Link to="/emprestimos">Meus emprestimos</Link>
           <Link to="/cadastro">Cadastrar item</Link>
         </nav>
 

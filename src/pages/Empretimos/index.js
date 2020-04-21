@@ -1,7 +1,7 @@
 import React from "react";
 
-// import { Container } from './styles';
+import Dashboard from "./Dashboard";
 
 export default function Empretimos() {
-  return <h1>Empretimos</h1>;
+  return <Dashboard />;
 }

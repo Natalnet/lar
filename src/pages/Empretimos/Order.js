@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 
 import history from "~/services/history";
 
-import { Filter, Button, ButtonBorrowed, Borrowed } from "./styles";
+import { Filter, Button, ButtonBorrowed } from "./styles";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -31,12 +31,12 @@ export default function Orders() {
   const [item, setItem] = useState([]);
 
   useEffect(() => {
-    async function loadInvetory() {
-      const response = await api.get("/invetory");
+    async function loadBorrowed() {
+      const response = await api.get("/borrowed");
       setItem(response.data);
     }
 
-    loadInvetory();
+    loadBorrowed();
   }, []);
 
   async function filterInvetory({ name, location }) {
@@ -61,31 +61,26 @@ export default function Orders() {
     }
   }
 
-  async function userBorrowed({ itemId, amount }) {
+  async function returneItem({ item_id }) {
     try {
-      const response = await api.post("/borrowed", {
-        item_id: itemId,
-        amount,
-      });
-      console.log(response);
-      toast.success(`Você realizou um empréstimo. Quantidade: ${amount}`);
+      const response = await api.put(`/borrowed/${item_id}`);
 
-      history.push("/emprestimos");
+      console.log(response);
+
+      toast.success("Devolução feita com sucesso");
+      history.push("/inventario");
     } catch (err) {
-      toast.error(
-        `Erro ao realizar  empréstimo. Verifique se a quantidade desejada está dísponivel ou se você já não possui um empréstimo com esse item`
-      );
+      toast.error("Erro ao fazer devolução");
     }
   }
 
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Inventário do LAR</Title>
+      <Title>Seus empréstimos</Title>
       <Filter>
         <Form onSubmit={filterInvetory}>
           <Input name="name" placeholder="Nome do item" />
-          <Input name="location" placeholder="Localização do item" />
           <Button type="submit">Filtrar</Button>
         </Form>
       </Filter>
@@ -93,43 +88,26 @@ export default function Orders() {
         <TableHead>
           <TableRow>
             <TableCell>Nome</TableCell>
-            <TableCell>Localização</TableCell>
-            <TableCell>Quantidade</TableCell>
-            <TableCell>Quantidade disponível para empréstimo</TableCell>
             <TableCell>Quantidade em empréstimo</TableCell>
-            <TableCell>Realizar empréstimo</TableCell>
+            <TableCell>Realizar devolução</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {item.map((item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.location}</TableCell>
+              <TableCell>{item.item.name}</TableCell>
               <TableCell>{item.amount}</TableCell>
-              <TableCell>{item.amount_available}</TableCell>
-              <TableCell>{item.borrowed_amount}</TableCell>
               <TableCell>
-                <Borrowed>
-                  <Form onSubmit={userBorrowed}>
+                <Filter>
+                  <Form onSubmit={returneItem}>
                     <div>
-                      <Input
-                        name="itemId"
-                        type="number"
-                        value={item.id}
-                        readOnly={true}
-                      />
+                      <Input readOnly name="item_id" value={item.id} />
                     </div>
-                    <Input
-                      name="amount"
-                      type="number"
-                      placeholder="Número de itens"
-                    />
-
                     <ButtonBorrowed type="submit">
-                      Realizar empréstimo
+                      Realizar devolução
                     </ButtonBorrowed>
                   </Form>
-                </Borrowed>
+                </Filter>
               </TableCell>
             </TableRow>
           ))}

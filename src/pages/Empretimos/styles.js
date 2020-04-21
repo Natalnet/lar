@@ -21,6 +21,12 @@ export const Filter = styled.div`
         color: rgba(0, 0, 0, 0.6);
       }
     }
+
+    div {
+      input {
+        display: none;
+      }
+    }
   }
 `;
 
@@ -66,7 +72,6 @@ export const Borrowed = styled.div`
 
     div {
       input {
-        display: none;
       }
     }
   }
