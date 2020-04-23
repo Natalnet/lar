@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
+import Pagination from "@material-ui/lab/Pagination";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,50 +15,71 @@ import { toast } from "react-toastify";
 
 import history from "~/services/history";
 
-import { Filter, Button, ButtonBorrowed, Borrowed } from "./styles";
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { Filter, Button, ButtonBorrowed, Borrowed, Container } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
+  root: {
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
 }));
 
 export default function Orders() {
   const [item, setItem] = useState([]);
+  const [page, setPage] = useState(1);
+  const [numberPages, setNumberPages] = useState(1);
+  const [name, setName] = useState(null);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     async function loadInvetory() {
-      const response = await api.get("/invetory");
+      const response = await api.get(
+        `/invetory?page=${page}${location ? "&location=" + location : ""}${
+          name ? "&name=" + name : ""
+        }`
+      );
       setItem(response.data);
     }
 
-    loadInvetory();
-  }, []);
+    async function loadNumberPages() {
+      const response = await api.get(`/invetory`);
 
-  async function filterInvetory({ name, location }) {
+      setNumberPages(1 + parseInt(response.data.length / 10));
+    }
+
+    loadInvetory();
+    loadNumberPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  async function filterInvetory() {
     if (name) {
-      const response = await api.get(`/invetory?name=${name}`);
+      const response = await api.get(`/invetory?name=${name}&page=${page}`);
 
       setItem(response.data);
     } else if (location) {
-      const response = await api.get(`/invetory?location=${location}`);
+      const response = await api.get(
+        `/invetory?location=${location}&page=${page}`
+      );
 
       setItem(response.data);
     } else if (name && location) {
       const response = await api.get(
-        `/invetory?name=${name}&location=${location}`
+        `/invetory?name=${name}&location=${location}&page=${page}`
       );
 
       setItem(response.data);
     } else {
-      const response = await api.get(`/invetory`);
+      const response = await api.get(`/invetory?page=${page}`);
 
       setItem(response.data);
     }
+
+    setPage(1);
   }
 
   async function userBorrowed({ itemId, amount }) {
@@ -78,14 +99,31 @@ export default function Orders() {
     }
   }
 
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  const changeName = (e) => {
+    setName(e.target.value);
+  };
+
+  const changeLocation = (e) => {
+    setLocation(e.target.value);
+  };
+
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <Title>Inventário do LAR</Title>
       <Filter>
         <Form onSubmit={filterInvetory}>
-          <Input name="name" placeholder="Nome do item" />
-          <Input name="location" placeholder="Localização do item" />
+          <Input name="name" placeholder="Nome do item" onChange={changeName} />
+          <Input
+            name="location"
+            placeholder="Localização do item"
+            onChange={changeLocation}
+          />
           <Button type="submit">Filtrar</Button>
         </Form>
       </Filter>
@@ -103,11 +141,21 @@ export default function Orders() {
         <TableBody>
           {item.map((item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.location}</TableCell>
-              <TableCell>{item.amount}</TableCell>
-              <TableCell>{item.amount_available}</TableCell>
-              <TableCell>{item.borrowed_amount}</TableCell>
+              <TableCell>
+                <strong>{item.name}</strong>
+              </TableCell>
+              <TableCell>
+                <strong>{item.location}</strong>
+              </TableCell>
+              <TableCell>
+                <strong>{item.amount}</strong>
+              </TableCell>
+              <TableCell>
+                <strong>{item.amount_available}</strong>
+              </TableCell>
+              <TableCell>
+                <strong>{item.borrowed_amount}</strong>
+              </TableCell>
               <TableCell>
                 <Borrowed>
                   <Form onSubmit={userBorrowed}>
@@ -135,11 +183,11 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          Visualizar mais itens
-        </Link>
-      </div>
+      <Container>
+        <div className={classes.root}>
+          <Pagination count={numberPages} page={page} onChange={handleChange} />
+        </div>
+      </Container>
     </React.Fragment>
   );
 }

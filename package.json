@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.50",
     "@redux-saga/is": "^1.1.2",
     "@rocketseat/unform": "^1.6.2",
     "@testing-library/jest-dom": "^4.2.4",

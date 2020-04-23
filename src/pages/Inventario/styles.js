@@ -1,7 +1,18 @@
 import styled from "styled-components";
 import { darken } from "polished";
 
+export const Container = styled.div`
+  div {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+  }
+`;
+
 export const Filter = styled.div`
+  justify-content: center;
+  display: flex;
+
   form {
     display: flex;
     margin-top: 20px;
@@ -9,7 +20,7 @@ export const Filter = styled.div`
 
     input {
       background: rgba(0, 0, 0, 0.1);
-      width: 20%;
+      width: 30%;
       border: 0;
       border-radius: 4px;
       height: 44px;
