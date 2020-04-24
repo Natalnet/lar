@@ -94,3 +94,25 @@ export const ButtonBorrowed = styled.button`
     background: ${darken(0.1, "#3b9eff")};
   }
 `;
+
+export const Container = styled.div`
+  div {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+  }
+`;
+
+export const Tr = styled.div`
+  table {
+    tbody {
+      tr {
+        background: #fff;
+
+        &:hover {
+          background: ${darken(0.1, "#fff")};
+        }
+      }
+    }
+  }
+`;

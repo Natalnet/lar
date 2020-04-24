@@ -9,6 +9,20 @@ export const Container = styled.div`
   }
 `;
 
+export const Tr = styled.div`
+  table {
+    tbody {
+      tr {
+        background: #fff;
+
+        &:hover {
+          background: ${darken(0.1, "#fff")};
+        }
+      }
+    }
+  }
+`;
+
 export const Filter = styled.div`
   justify-content: center;
   display: flex;

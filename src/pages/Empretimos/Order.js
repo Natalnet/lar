@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
 import { Form, Input } from "@rocketseat/unform";
+import Pagination from "@material-ui/lab/Pagination";
 
 import api from "~/services/api";
 
@@ -15,11 +15,7 @@ import { toast } from "react-toastify";
 
 import history from "~/services/history";
 
-import { Filter, Button, ButtonBorrowed } from "./styles";
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { Filter, Button, ButtonBorrowed, Tr } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -39,23 +35,13 @@ export default function Orders() {
     loadBorrowed();
   }, []);
 
-  async function filterInvetory({ name, location }) {
+  async function filterInvetory({ name }) {
     if (name) {
-      const response = await api.get(`/invetory?name=${name}`);
-
-      setItem(response.data);
-    } else if (location) {
-      const response = await api.get(`/invetory?location=${location}`);
-
-      setItem(response.data);
-    } else if (name && location) {
-      const response = await api.get(
-        `/invetory?name=${name}&location=${location}`
-      );
+      const response = await api.get(`/borrowed?name=${name}`);
 
       setItem(response.data);
     } else {
-      const response = await api.get(`/invetory`);
+      const response = await api.get(`/borrowed`);
 
       setItem(response.data);
     }
@@ -84,40 +70,37 @@ export default function Orders() {
           <Button type="submit">Filtrar</Button>
         </Form>
       </Filter>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Nome</TableCell>
-            <TableCell>Quantidade em empréstimo</TableCell>
-            <TableCell>Realizar devolução</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {item.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.item.name}</TableCell>
-              <TableCell>{item.amount}</TableCell>
-              <TableCell>
-                <Filter>
-                  <Form onSubmit={returneItem}>
-                    <div>
-                      <Input readOnly name="item_id" value={item.id} />
-                    </div>
-                    <ButtonBorrowed type="submit">
-                      Realizar devolução
-                    </ButtonBorrowed>
-                  </Form>
-                </Filter>
-              </TableCell>
+      <Tr>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
+              <TableCell>Quantidade em empréstimo</TableCell>
+              <TableCell>Realizar devolução</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          Visualizar mais itens
-        </Link>
-      </div>
+          </TableHead>
+          <TableBody>
+            {item.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.item.name}</TableCell>
+                <TableCell>{item.amount}</TableCell>
+                <TableCell>
+                  <Filter>
+                    <Form onSubmit={returneItem}>
+                      <div>
+                        <Input readOnly name="item_id" value={item.id} />
+                      </div>
+                      <ButtonBorrowed type="submit">
+                        Realizar devolução
+                      </ButtonBorrowed>
+                    </Form>
+                  </Filter>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Tr>
     </React.Fragment>
   );
 }

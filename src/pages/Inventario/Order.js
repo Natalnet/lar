@@ -15,7 +15,14 @@ import { toast } from "react-toastify";
 
 import history from "~/services/history";
 
-import { Filter, Button, ButtonBorrowed, Borrowed, Container } from "./styles";
+import {
+  Filter,
+  Button,
+  ButtonBorrowed,
+  Borrowed,
+  Container,
+  Tr,
+} from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -127,62 +134,66 @@ export default function Orders() {
           <Button type="submit">Filtrar</Button>
         </Form>
       </Filter>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Nome</TableCell>
-            <TableCell>Localização</TableCell>
-            <TableCell>Quantidade</TableCell>
-            <TableCell>Quantidade disponível para empréstimo</TableCell>
-            <TableCell>Quantidade em empréstimo</TableCell>
-            <TableCell>Realizar empréstimo</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {item.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>
-                <strong>{item.name}</strong>
-              </TableCell>
-              <TableCell>
-                <strong>{item.location}</strong>
-              </TableCell>
-              <TableCell>
-                <strong>{item.amount}</strong>
-              </TableCell>
-              <TableCell>
-                <strong>{item.amount_available}</strong>
-              </TableCell>
-              <TableCell>
-                <strong>{item.borrowed_amount}</strong>
-              </TableCell>
-              <TableCell>
-                <Borrowed>
-                  <Form onSubmit={userBorrowed}>
-                    <div>
-                      <Input
-                        name="itemId"
-                        type="number"
-                        value={item.id}
-                        readOnly={true}
-                      />
-                    </div>
-                    <Input
-                      name="amount"
-                      type="number"
-                      placeholder="Número de itens"
-                    />
+      <Tr>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
 
-                    <ButtonBorrowed type="submit">
-                      Realizar empréstimo
-                    </ButtonBorrowed>
-                  </Form>
-                </Borrowed>
-              </TableCell>
+              <TableCell>Localização</TableCell>
+              <TableCell>Quantidade</TableCell>
+              <TableCell>Quantidade disponível para empréstimo</TableCell>
+              <TableCell>Quantidade em empréstimo</TableCell>
+              <TableCell>Realizar empréstimo</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {item.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>
+                  <strong>{item.name}</strong>
+                </TableCell>
+
+                <TableCell>
+                  <strong>{item.location}</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>{item.amount}</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>{item.amount_available}</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>{item.borrowed_amount}</strong>
+                </TableCell>
+                <TableCell>
+                  <Borrowed>
+                    <Form onSubmit={userBorrowed}>
+                      <div>
+                        <Input
+                          name="itemId"
+                          type="number"
+                          value={item.id}
+                          readOnly={true}
+                        />
+                      </div>
+                      <Input
+                        name="amount"
+                        type="number"
+                        placeholder="Número de itens"
+                      />
+
+                      <ButtonBorrowed type="submit">
+                        Realizar empréstimo
+                      </ButtonBorrowed>
+                    </Form>
+                  </Borrowed>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Tr>
       <Container>
         <div className={classes.root}>
           <Pagination count={numberPages} page={page} onChange={handleChange} />
