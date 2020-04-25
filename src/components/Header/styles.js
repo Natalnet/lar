@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background: #eee;
+  background: #fff;
   padding: 0 30px;
   position: fixed;
   z-index: 1000;
   width: 100%;
+  border-bottom: 2px solid #ddd;
 `;
 
 export const Content = styled.div`
