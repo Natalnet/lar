@@ -11,9 +11,9 @@ import { Form, Input } from "@rocketseat/unform";
 
 import api from "~/services/api";
 
-import { toast } from "react-toastify";
+import Modal from "./Modal";
 
-import history from "~/services/history";
+import { toast } from "react-toastify";
 
 import {
   Filter,
@@ -41,6 +41,10 @@ export default function Orders() {
   const [numberPages, setNumberPages] = useState(1);
   const [name, setName] = useState(null);
   const [location, setLocation] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [modalItemId, setModalItemId] = useState("");
+  const [modalName, setmodalName] = useState("");
+  const [modalAmount, setmodalAmount] = useState("");
 
   useEffect(() => {
     async function loadInvetory() {
@@ -89,20 +93,14 @@ export default function Orders() {
     setPage(1);
   }
 
-  async function userBorrowed({ itemId, amount }) {
-    try {
-      const response = await api.post("/borrowed", {
-        item_id: itemId,
-        amount,
-      });
-      console.log(response);
-      toast.success(`Você realizou um empréstimo. Quantidade: ${amount}`);
-
-      history.push("/emprestimos");
-    } catch (err) {
-      toast.error(
-        `Erro ao realizar  empréstimo. Verifique se a quantidade desejada está dísponivel ou se você já não possui um empréstimo com esse item`
-      );
+  async function userBorrowed({ itemId, amount, name }) {
+    if (amount <= 0) {
+      toast.error("Selecione uma quantiade maior que 0");
+    } else {
+      setModalItemId(itemId);
+      setmodalAmount(amount);
+      setmodalName(name);
+      setOpen(!open);
     }
   }
 
@@ -134,6 +132,13 @@ export default function Orders() {
           <Button type="submit">Filtrar</Button>
         </Form>
       </Filter>
+      <Modal
+        itemId={modalItemId}
+        amount={modalAmount}
+        name={modalName}
+        open={open}
+        setOpen={setOpen}
+      />
       <Tr>
         <Table size="small">
           <TableHead>
@@ -176,6 +181,8 @@ export default function Orders() {
                           value={item.id}
                           readOnly={true}
                         />
+
+                        <Input name="name" value={item.name} readOnly={true} />
                       </div>
                       <Input
                         name="amount"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,7 +6,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
 import { Form, Input } from "@rocketseat/unform";
-import Pagination from "@material-ui/lab/Pagination";
 
 import api from "~/services/api";
 
@@ -16,12 +14,6 @@ import { toast } from "react-toastify";
 import history from "~/services/history";
 
 import { Filter, Button, ButtonBorrowed, Tr } from "./styles";
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
 
 export default function Orders() {
   const [item, setItem] = useState([]);
@@ -60,7 +52,6 @@ export default function Orders() {
     }
   }
 
-  const classes = useStyles();
   return (
     <React.Fragment>
       <Title>Seus empréstimos</Title>
