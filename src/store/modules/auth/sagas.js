@@ -21,7 +21,7 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    history.push("/dashboard");
+    history.push("/lar/dashboard");
   } catch (err) {
     toast.error("Falha na autenticação, Verifique seus dados");
     yield put(signFailure());
@@ -39,7 +39,7 @@ export function* signUp({ payload }) {
       project,
     });
 
-    history.push("/");
+    history.push("/lar");
   } catch (err) {
     toast.error("Falha no cadastro, verifique seus dados");
 
@@ -58,7 +58,7 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  history.push("/");
+  history.push("/lar");
 }
 
 export default all([

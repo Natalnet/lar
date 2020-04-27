@@ -15,12 +15,12 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <Link to="/">
+          <Link to="/lar">
             <img src={logo} alt="Laboratório de Automoção e Robótica" />
           </Link>
-          <Link to="/inventario">Inventário</Link>
-          <Link to="/emprestimos">Meus emprestimos</Link>
-          <Link to="/cadastro">Cadastrar item</Link>
+          <Link to="/lar/inventario">Inventário</Link>
+          <Link to="/lar/emprestimos">Meus emprestimos</Link>
+          <Link to="/lar/cadastro">Cadastrar item</Link>
         </nav>
 
         <aside>
@@ -28,7 +28,7 @@ export default function Header() {
             <div>
               <strong>{profile.name}</strong>
               <p>{profile.project}</p>
-              <Link to="/perfil">Meu perfil</Link>
+              <Link to="/lar/perfil">Meu perfil</Link>
             </div>
             <img
               src={profile.avatar ? profile.avatar.url : defaultPerfil}

@@ -32,7 +32,7 @@ export default function SignIn() {
         <Input name="password" type="password" placeholder="Sua senha" />
 
         <button type="submit">{loading ? "Carregando..." : "Acessar"}</button>
-        <Link to="/registrar">Criar Conta</Link>
+        <Link to="/lar/registrar">Criar Conta</Link>
       </Form>
     </>
   );

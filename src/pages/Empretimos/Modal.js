@@ -16,7 +16,7 @@ export default function Modal({ item_id, amount, name, open, setOpen }) {
       console.log(response);
 
       toast.success("Devolução feita com sucesso");
-      history.push("/inventario");
+      history.push("/lar/inventario");
     } catch (err) {
       toast.error("Erro ao fazer devolução");
     }

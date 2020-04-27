@@ -6,14 +6,16 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 
   form {
     display: flex;
+    margin: 200px auto;
     flex-direction: column;
-    margin: 200px 630px;
 
     input {
       background: rgba(0, 0, 0, 0.1);
+      width: 540px;
       border: 0;
       border-radius: 4px;
       height: 44px;
