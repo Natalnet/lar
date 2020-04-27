@@ -57,15 +57,18 @@ export default function Orders() {
     }
 
     async function loadNumberPages() {
-      const response = await api.get(`/invetory`);
+      const response = await api.get(
+        `/invetory?${location ? "location=" + location : ""}${
+          name ? "&name=" + name : ""
+        }`
+      );
 
       setNumberPages(1 + parseInt(response.data.length / 10));
     }
 
     loadInvetory();
     loadNumberPages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [location, name, page]);
 
   async function filterInvetory() {
     if (name) {
@@ -110,10 +113,12 @@ export default function Orders() {
 
   const changeName = (e) => {
     setName(e.target.value);
+    setPage(1);
   };
 
   const changeLocation = (e) => {
     setLocation(e.target.value);
+    setPage(1);
   };
 
   const classes = useStyles();
