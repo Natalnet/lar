@@ -18,7 +18,7 @@ export default function Modal({ itemId, amount, name, open, setOpen }) {
       console.log(response);
       toast.success(`Você realizou um empréstimo. Quantidade: ${amount}`);
 
-      history.push("/emprestimos");
+      history.push("/lar/emprestimos");
     } catch (err) {
       toast.error(
         `Erro ao realizar  empréstimo. Verifique se a quantidade desejada está dísponivel ou se você já não possui um empréstimo com esse item`
