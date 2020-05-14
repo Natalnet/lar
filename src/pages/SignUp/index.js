@@ -36,7 +36,7 @@ export default function SignUp() {
         <Input name="project" placeholder="Projeto que você faz parte" />
 
         <button type="submit">Criar conta</button>
-        <Link to="/">Já tenho login</Link>
+        <Link to="/lar/">Já tenho login</Link>
       </Form>
     </>
   );
